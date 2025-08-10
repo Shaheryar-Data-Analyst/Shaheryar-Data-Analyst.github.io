@@ -11,26 +11,38 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css"/>
   <style>
-    :root{--bg:#0b1220;--muted:#94a3b8;--text:#e2e8f0;--brand:#7c3aed;--brand-2:#22d3ee}
+    :root{--bg:#0b1220;--surface:#0f172a;--muted:#94a3b8;--text:#e2e8f0;--brand:#7c3aed;--brand-2:#22d3ee;--card:#111827ee;--ring:#22d3ee55;--shadow:0 10px 30px rgba(0,0,0,.35)}
     html,body{height:100%}
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:radial-gradient(1200px 800px at 80% -20%,#1d2a4a,transparent),radial-gradient(800px 500px at -10% 10%,#1b2a3a,transparent),#0b1220;line-height:1.6}
+    body{margin:0;font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;color:var(--text);background:radial-gradient(1200px 800px at 80% -20%, #1d2a4a, transparent),radial-gradient(800px 500px at -10% 10%, #1b2a3a, transparent),var(--bg);line-height:1.6;letter-spacing:.2px}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
     .wrapper{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
-    aside{position:sticky;top:0;height:100vh;padding:28px;background:linear-gradient(180deg,rgba(17,24,39,.85),rgba(17,24,39,.55));border-right:1px solid rgba(255,255,255,.06);backdrop-filter:blur(8px)}
+    aside{position:sticky;top:0;height:100vh;padding:28px;background:linear-gradient(180deg, rgba(17,24,39,.85), rgba(17,24,39,.55));border-right:1px solid rgba(255,255,255,.06);backdrop-filter:blur(8px)}
     main{padding:32px}
-    .avatar{width:108px;height:108px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,.08)}
-    .name{font:800 22px/1 Poppins,Inter,sans-serif;margin:12px 0 6px}
+    .avatar{width:108px;height:108px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,.08);box-shadow:var(--shadow)}
+    .name{font:800 22px/1 Poppins, Inter, sans-serif;margin:12px 0 6px}
     .title{color:var(--muted);font-weight:600;font-size:13px}
     nav ul{list-style:none;padding:0;margin:28px 0 0}
     nav li{margin:10px 0}
     nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;color:#cbd5e1}
-    nav a:hover,nav a.active{background:rgba(124,58,237,.15);color:white;outline:1px solid rgba(124,58,237,.35)}
-    .section{padding:64px 0}
+    nav a:hover,nav a.active{background:rgba(124,58,237,.15);color:#fff;outline:1px solid rgba(124,58,237,.35)}
+    .social{display:flex;gap:10px;margin-top:16px}
+    .social a{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#0b1224;outline:1px solid rgba(255,255,255,.06)}
+    .social a:hover{outline-color:var(--ring);box-shadow:0 0 0 6px var(--ring)}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(34,211,238,.14);color:#a5f3fc;border:1px solid rgba(34,211,238,.35);border-radius:999px;font-weight:600;font-size:12px}
+    .section{padding:64px 0;scroll-margin-top:40px}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center}
+    .hero h1{font:800 56px/1 Poppins, Inter, sans-serif;margin:0 0 14px;letter-spacing:.5px}
+    .gradient{background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{color:#cbd5e1;font-size:18px}
+    .cta{display:flex;gap:12px;margin-top:26px}
+    .btn{padding:12px 16px;border-radius:14px;font-weight:700;letter-spacing:.2px;border:1px solid rgba(255,255,255,.08);background:#0b1224}
+    .btn.primary{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#0b1220;border:none}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(0,0,0,.25)}
     .grid{display:grid;gap:18px}
     .grid.cols-3{grid-template-columns:repeat(3,1fr)}
-    .project{overflow:hidden;border-radius:16px;background:#0b1224;border:1px solid rgba(255,255,255,.06)}
+    .project{position:relative;overflow:hidden;border-radius:16px;background:#0b1224;border:1px solid rgba(255,255,255,.06)}
     .project img{height:180px;width:100%;object-fit:cover}
     .project .p-body{padding:16px}
     .tag{display:inline-block;font-size:11px;padding:6px 10px;border:1px solid rgba(255,255,255,.1);border-radius:999px;color:#94a3b8}
@@ -38,13 +50,18 @@
     .timeline::before{content:"";position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(var(--brand),transparent)}
     .t-item{position:relative;padding-left:34px;margin:20px 0}
     .t-item::before{content:"";position:absolute;left:4px;top:8px;width:14px;height:14px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 4px rgba(124,58,237,.25)}
+    .t-item h4{margin:0 0 6px}
+    .t-item small{color:var(--muted)}
     .chips{display:flex;flex-wrap:wrap;gap:10px}
     .chip{padding:8px 12px;border:1px solid rgba(255,255,255,.08);background:#0b1224;border-radius:999px;color:#cbd5e1;font-weight:600}
     .bar{height:10px;background:#0b1224;border:1px solid rgba(255,255,255,.06);border-radius:999px;overflow:hidden}
     .bar>span{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand-2))}
+    form{display:grid;gap:12px}
+    input,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:#0b1224;color:var(--text)}
+    input:focus,textarea:focus{outline:2px solid var(--brand-2)}
     footer{padding:26px 0;color:#94a3b8}
-    @media (max-width:1024px){.wrapper{grid-template-columns:1fr}.grid.cols-3{grid-template-columns:1fr 1fr}}
-    @media (max-width:640px){.grid.cols-3{grid-template-columns:1fr}}
+    @media (max-width:1024px){.wrapper{grid-template-columns:1fr}aside{position:static;height:auto;border-right:none}.hero{grid-template-columns:1fr}.grid.cols-3{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){.hero h1{font-size:40px}.grid.cols-3{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -53,75 +70,145 @@
       <img class="avatar" src="assets/img/profile-img.jpg" alt="Sheikh Mohammad Shaheryar"/>
       <div class="name">Sheikh Mohammad Shaheryar</div>
       <div class="title">Software Engineer · Data Scientist</div>
+      <div class="social">
+        <a href="https://www.linkedin.com/in/sheikh-mohammad-shaheryar/" title="LinkedIn"><i class='bx bxl-linkedin'></i></a>
+        <a href="https://github.com/Shaheryar-Data-Analyst" title="GitHub"><i class='bx bxl-github'></i></a>
+        <a href="mailto:shaheryarnadeem@live.com" title="Email"><i class='bx bx-envelope'></i></a>
+      </div>
       <nav>
         <ul>
-          <li><a class="active" href="#projects">Projects</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#certificates">Certificates</a></li>
+          <li><a class="active" href="#home"><i class='bx bx-home'></i>Home</a></li>
+          <li><a href="#projects"><i class='bx bx-grid-alt'></i>Projects</a></li>
+          <li><a href="#experience"><i class='bx bx-trophy'></i>Experience</a></li>
+          <li><a href="#skills"><i class='bx bx-dialpad'></i>Skills</a></li>
+          <li><a href="#certificates"><i class='bx bx-certification'></i>Certificates</a></li>
+          <li><a href="#contact"><i class='bx bx-send'></i>Contact</a></li>
         </ul>
       </nav>
+      <div style="margin-top:18px" class="badge"><i class='bx bxs-bolt'></i> Available for full‑time roles in KSA</div>
     </aside>
 
     <main>
+      <!-- Hero -->
+      <section id="home" class="section hero">
+        <div>
+          <h1>Building <span class="gradient">clean products</span><br/> with data & code</h1>
+          <p class="lead">Full‑stack developer with an M.Sc. in Data Science. I ship real‑world business apps, analytics dashboards, and AI‑powered features.</p>
+          <div class="cta">
+            <a class="btn primary" href="#projects">View Projects</a>
+          </div>
+        </div>
+      </section>
+
       <!-- Projects -->
       <section id="projects" class="section">
         <h2>Featured Projects</h2>
         <div class="grid cols-3">
-          <!-- Invoice -->
+          <!-- 1. Invoice App — now inline SVG cover -->
           <a class="project" href="https://github.com/Shaheryar-Data-Analyst/invoice_app-python-" target="_blank">
-            <img alt="Invoice App" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='1200' height='600'><defs><linearGradient id='gi' x1='0' x2='1'><stop offset='0' stop-color='%238b5cf6'/><stop offset='1' stop-color='%2322d3ee'/></linearGradient></defs><rect width='100%' height='100%' fill='%230b1224'/><rect x='80' y='70' width='1040' height='120' rx='18' fill='url(%23gi)' opacity='0.32'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Poppins,Arial' font-size='42' fill='%23e2e8f0'>VAT‑Compliant Invoice App</text><text x='50%' y='66%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,Arial' font-size='20' fill='%23a8b3c7'>Python • Tkinter • MySQL</text></svg>"/>
-            <div class="p-body"><div class="tag">Python · Tkinter · MySQL</div><h3>Invoice Generator (VAT, KSA)</h3><p style="color:#a8b3c7">Bilingual VAT‑compliant PDF invoices with ZATCA QR; products, returns, ledger.</p></div>
+            <img alt="Invoice App" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='1200' height='600'><defs><linearGradient id='g0' x1='0' x2='1'><stop offset='0' stop-color='%238b5cf6'/><stop offset='1' stop-color='%2322d3ee'/></linearGradient></defs><rect width='100%' height='100%' fill='%230b1224'/><rect x='80' y='70' width='1040' height='120' rx='18' fill='url(%23g0)' opacity='0.32'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Poppins,Arial' font-size='42' fill='%23e2e8f0'>VAT‑Compliant Invoice App</text><text x='50%' y='66%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,Arial' font-size='20' fill='%23a8b3c7'>Python • Tkinter • MySQL</text></svg>"/>
+            <div class="p-body">
+              <div class="tag">Python · Tkinter · MySQL</div>
+              <h3>Invoice Generator (VAT, KSA)</h3>
+              <p style="color:#a8b3c7">Bilingual VAT‑compliant PDF invoices with ZATCA QR; products, returns, and customer ledger.</p>
+            </div>
           </a>
 
-          <!-- NHS -->
+          <!-- 2. NHS System (SVG already) -->
           <a class="project" href="#" target="_blank">
             <img alt="NHS Physiotherapy Appointment System" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='1200' height='600'><defs><linearGradient id='g1' x1='0' x2='1'><stop offset='0' stop-color='%237c3aed'/><stop offset='1' stop-color='%2322d3ee'/></linearGradient></defs><rect width='100%' height='100%' fill='%230b1224'/><rect x='0' y='0' width='1200' height='220' fill='url(%23g1)' opacity='0.28'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Poppins,Arial' font-size='42' fill='%23e2e8f0'>NHS Physiotherapy Appointment System</text><text x='50%' y='66%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,Arial' font-size='20' fill='%23a8b3c7'>Next.js • MongoDB • REST • Python</text></svg>"/>
-            <div class="p-body"><div class="tag">Next.js · MongoDB · REST · Python</div><h3>NHS Physiotherapy Appointment System</h3><p style="color:#a8b3c7">Master’s project; automated feedback & ops pipelines, wait‑time trends.</p></div>
+            <div class="p-body">
+              <div class="tag">Next.js · MongoDB · REST · Python</div>
+              <h3>NHS Physiotherapy Appointment System</h3>
+              <p style="color:#a8b3c7">Master’s project; automated feedback & ops pipelines, wait‑time trend analysis, data QA.</p>
+            </div>
           </a>
 
-          <!-- Sales Analytics -->
+          <!-- 3. Sales Analytics (SVG already) -->
           <a class="project" href="#" target="_blank">
             <img alt="Sales Analytics Dashboard" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='1200' height='600'><defs><linearGradient id='g2' x1='0' x2='1'><stop offset='0' stop-color='%2314b8a6'/><stop offset='1' stop-color='%237c3aed'/></linearGradient></defs><rect width='100%' height='100%' fill='%230b1224'/><circle cx='950' cy='120' r='120' fill='url(%23g2)' opacity='0.32'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Poppins,Arial' font-size='42' fill='%23e2e8f0'>Sales Analytics Dashboard</text><text x='50%' y='66%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,Arial' font-size='20' fill='%23a8b3c7'>Power BI • SQL • DAX</text></svg>"/>
-            <div class="p-body"><div class="tag">Power BI · SQL · DAX</div><h3>Sales Analytics Dashboard</h3><p style="color:#a8b3c7">Interactive KPIs & seasonal trends; helped +20% quarterly revenue.</p></div>
+            <div class="p-body">
+              <div class="tag">Power BI · SQL · DAX</div>
+              <h3>Sales Analytics Dashboard</h3>
+              <p style="color:#a8b3c7">Interactive KPIs and seasonal trends; contributed to +20% quarterly revenue.</p>
+            </div>
           </a>
 
-          <!-- Enterprise HR & School Admin (SVG ADDED) -->
+          <!-- 4. Enterprise HR (SVG already) -->
           <a class="project" href="#" target="_blank">
-            <img alt="Enterprise HR & School Admin" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='1200' height='600'><defs><linearGradient id='g3' x1='0' x2='1'><stop offset='0' stop-color='%2322d3ee'/><stop offset='1' stop-color='%238b5cf6'/></linearGradient></defs><rect width='100%' height='100%' fill='%230b1224'/><rect x='0' y='420' width='1200' height='220' fill='url(%23g3)' opacity='0.28'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Poppins,Arial' font-size='42' fill='%23e2e8f0'>Enterprise HR & School Admin</text><text x='50%' y='64%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,Arial' font-size='20' fill='%23a8b3c7'>Spring Boot • C# • MySQL • REST</text></svg>"/>
-            <div class="p-body"><div class="tag">Spring Boot · C# · MySQL · REST</div><h3>Enterprise HR & School Admin</h3><p style="color:#a8b3c7">Auth, payroll, leave; student records & fees; BI extracts.</p></div>
+            <img alt="Enterprise HR & School Admin" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='1200' height='600'><defs><linearGradient id='g3' x1='0' x2='1'><stop offset='0' stop-color='%2322d3ee'/><stop offset='1' stop-color='%238b5cf6'/></linearGradient></defs><rect width='100%' height='100%' fill='%230b1224'/><rect x='0' y='420' width='1200' height='220' fill='url(%23g3)' opacity='0.28'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Poppins,Arial' font-size='42' fill='%23e2e8f0'>Enterprise HR & School Admin</text><text x='50%' y='66%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,Arial' font-size='20' fill='%23a8b3c7'>Spring Boot • C# • MySQL • REST</text></svg>"/>
+            <div class="p-body">
+              <div class="tag">Spring Boot · C# · MySQL · REST</div>
+              <h3>Enterprise HR & School Admin</h3>
+              <p style="color:#a8b3c7">Auth, payroll, leave; student records & fees; BI extracts for performance insights.</p>
+            </div>
           </a>
 
-          <!-- Inventory / POS -->
+          <!-- 5. Inventory/POS — now inline SVG cover -->
           <a class="project" href="https://github.com/Shaheryar-Data-Analyst/zoo-test" target="_blank">
             <img alt="Inventory / POS System" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='1200' height='600'><defs><linearGradient id='g5' x1='0' x2='1'><stop offset='0' stop-color='%237c3aed'/><stop offset='1' stop-color='%2314b8a6'/></linearGradient></defs><rect width='100%' height='100%' fill='%230b1224'/><rect x='60' y='420' width='1080' height='120' rx='18' fill='url(%23g5)' opacity='0.32'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Poppins,Arial' font-size='42' fill='%23e2e8f0'>Inventory / POS System</text><text x='50%' y='66%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,Arial' font-size='20' fill='%23a8b3c7'>Laravel • React • REST</text></svg>"/>
-            <div class="p-body"><div class="tag">Laravel · React · REST</div><h3>Inventory / POS</h3><p style="color:#a8b3c7">Items, sales, returns; Arabic i18n; role‑based access.</p></div>
+            <div class="p-body">
+              <div class="tag">Laravel · React · REST</div>
+              <h3>Inventory / POS</h3>
+              <p style="color:#a8b3c7">Items, sales, returns; Arabic i18n; role‑based access.</p>
+            </div>
           </a>
 
-          <!-- Data Scraping & Analysis (SVG ADDED) -->
+          <!-- 6. Data Scraping (SVG already) -->
           <a class="project" href="#" target="_blank">
             <img alt="Data Scraping & Analysis" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='1200' height='600'><defs><linearGradient id='g4' x1='0' x2='1'><stop offset='0' stop-color='%233256e1'/><stop offset='1' stop-color='%2314b8a6'/></linearGradient></defs><rect width='100%' height='100%' fill='%230b1224'/><rect x='100' y='60' width='1000' height='140' rx='18' fill='url(%23g4)' opacity='0.35'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='Poppins,Arial' font-size='42' fill='%23e2e8f0'>Data Scraping & Analysis</text><text x='50%' y='66%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,Arial' font-size='20' fill='%23a8b3c7'>Python • BeautifulSoup • Pandas • MATLAB</text></svg>"/>
-            <div class="p-body"><div class="tag">Python · BeautifulSoup · Pandas · MATLAB</div><h3>Data Scraping & Analysis</h3><p style="color:#a8b3c7">Cleaned multi‑site datasets and visualized insights for ops decisions.</p></div>
+            <div class="p-body">
+              <div class="tag">Python · BeautifulSoup · Pandas · MATLAB</div>
+              <h3>Data Scraping & Analysis</h3>
+              <p style="color:#a8b3c7">Cleaned multi‑site datasets and visualized insights for product & ops decisions.</p>
+            </div>
           </a>
         </div>
       </section>
 
-      <!-- Experience (unchanged content placeholder) -->
+      <!-- Experience -->
       <section id="experience" class="section">
         <h2>Experience</h2>
         <div class="timeline">
-          <div class="t-item"><h4>Data Analyst — Epochs IT Solutions</h4><small>Jul 2023 – Jul 2024 · Remote (UK)</small><p>Power BI/Tableau dashboards; automated ETL; SQL trend analysis driving +25% sales.</p></div>
-          <div class="t-item"><h4>Software Engineer / Data Analyst — Agile‑Kinetic</h4><small>May 2022 – May 2023 · Cardiff, UK</small><p>Full‑stack delivery; ML churn prediction ~85%; BI integrations.</p></div>
-          <div class="t-item"><h4>Software Engineer — JoeyCo</h4><small>Mar 2020 – Aug 2021 · Karachi (CA franchise)</small><p>DB optimization & warehousing; led team ~24M txns/yr.</p></div>
-          <div class="t-item"><h4>Junior Software Engineer — Conure ITS</h4><small>Sep 2017 – Mar 2019 · Karachi (US franchise)</small><p>Java/Spring + AngularJS; OAuth/JWT; 3rd‑party API integrations.</p></div>
+          <div class="t-item">
+            <h4>Data Analyst — Epochs IT Solutions</h4>
+            <small>Jul 2023 – Jul 2024 · Remote (UK)</small>
+            <p>Built Power BI/Tableau dashboards; automated ETL (‑50% processing time); SQL trend analysis driving +25% sales.</p>
+          </div>
+          <div class="t-item">
+            <h4>Software Engineer / Data Analyst — Agile‑Kinetic</h4>
+            <small>May 2022 – May 2023 · Cardiff, UK</small>
+            <p>Full‑stack delivery; agile practices; SQL pipelines and ML for churn prediction (~85% accuracy); BI integrations.</p>
+          </div>
+          <div class="t-item">
+            <h4>Software Engineer — JoeyCo</h4>
+            <small>Mar 2020 – Aug 2021 · Karachi (Canadian franchise)</small>
+            <p>Optimized DB queries & stored procedures; designed warehousing; led team handling ~24M annual txns.</p>
+          </div>
+          <div class="t-item">
+            <h4>Junior Software Engineer — Conure ITS</h4>
+            <small>Sep 2017 – Mar 2019 · Karachi (US franchise)</small>
+            <p>Real‑time Java/Spring + AngularJS apps; OAuth/JWT auth; third‑party API integrations.</p>
+          </div>
         </div>
       </section>
 
-      <!-- Skills (placeholder) -->
+      <!-- Skills -->
       <section id="skills" class="section">
         <h2>Skills</h2>
-        <div class="chips"><span class="chip">Python</span><span class="chip">Java</span><span class="chip">JavaScript</span><span class="chip">PHP</span><span class="chip">React</span><span class="chip">Laravel</span><span class="chip">Spring Boot</span><span class="chip">Power BI</span><span class="chip">Tableau</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">MySQL</span><span class="chip">PostgreSQL</span><span class="chip">MongoDB</span></div>
-        <div style="margin-top:12px"><div class="bar"><span style="width:92%"></span></div></div>
+        <div class="chips" style="margin-bottom:12px">
+          <span class="chip">Python</span><span class="chip">Java</span><span class="chip">JavaScript</span><span class="chip">PHP</span><span class="chip">HTML</span><span class="chip">R</span><span class="chip">SQL</span>
+          <span class="chip">React</span><span class="chip">Node.js</span><span class="chip">Laravel</span><span class="chip">Spring Boot</span><span class="chip">APIs</span><span class="chip">Agile</span>
+          <span class="chip">Power BI</span><span class="chip">Tableau</span><span class="chip">Google Data Studio</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Scikit‑learn</span><span class="chip">TensorFlow</span>
+          <span class="chip">MySQL</span><span class="chip">PostgreSQL</span><span class="chip">MongoDB</span><span class="chip">Git</span><span class="chip">JIRA</span>
+        </div>
+        <div class="card" style="margin-top:12px">
+          <div style="display:grid;gap:10px">
+            <div><b>Full‑Stack</b><div class="bar"><span style="width:92%"></span></div></div>
+            <div><b>Data Science & BI</b><div class="bar"><span style="width:84%"></span></div></div>
+            <div><b>NLP / XAI</b><div class="bar"><span style="width:75%"></span></div></div>
+          </div>
+        </div>
       </section>
 
       <!-- Certificates — all SVG covers ADDED -->
@@ -143,9 +230,40 @@
         </div>
       </section>
 
-      <footer><span>© <span id="y"></span> Sheikh Mohammad Shaheryar</span></footer>
+      <!-- Contact -->
+      <section id="contact" class="section">
+        <h2>Contact</h2>
+        <p class="lead" style="margin-top:0;color:#a8b3c7">Dammam, KSA — Iqama transferable · Available immediately</p>
+        <form onsubmit="event.preventDefault();alert('Thanks! I\'ll get back to you shortly.');this.reset();">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <input required placeholder="Your name"/>
+            <input required type="email" placeholder="Your email"/>
+          </div>
+          <input required placeholder="Subject"/>
+          <textarea rows="5" required placeholder="Message"></textarea>
+          <button class="btn primary" type="submit">Send Message</button>
+        </form>
+      </section>
+
+      <footer>
+        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+          <span>© <span id="y"></span> Sheikh Mohammad Shaheryar</span>
+          <span style="color:#718096">Built with HTML · CSS · JS</span>
+        </div>
+      </footer>
     </main>
   </div>
-  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+
+  <script>
+    // Active nav highlight on scroll
+    const links=[...document.querySelectorAll('nav a')];
+    const sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('active', l.getAttribute('href')==='#'+e.target.id));}});},{rootMargin:'-40% 0px -55% 0px',threshold:0});
+    sections.forEach(s=>obs.observe(s));
+    // Smooth scroll
+    links.forEach(a=>a.addEventListener('click',e=>{if(a.getAttribute('href').startsWith('#')){e.preventDefault();document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});}}));
+    // Year
+    document.getElementById('y').textContent=new Date().getFullYear();
+  </script>
 </body>
 </html>
